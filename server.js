@@ -2,6 +2,8 @@ require("dotenv").config() // Load .env file
 const mysql = require("mysql")
 const bodyParser = require("body-parser")
 const PORT = process.env.PORT
+
+// MySQL Configuration
 const MYSQL_HOST = process.env.DB_HOST
 const MYSQL_USER = process.env.DB_USER
 const MYSQL_PW = process.env.DB_PASSWORD
@@ -22,11 +24,30 @@ connection.connect((err) => {
   console.log(`Connected to the ${MYSQL_DB} Database!`)
 })
 
-const express = require("express")
-const app = express()
+// MySQL Queries
+// connection.query(`DESCRIBE ${MYSQL_TABLE}`, (error, results) => {
+//   if (error) {
+//     throw error
+//   }
+//   console.log(`${MYSQL_TABLE} Description:`, results)
+// })
 
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "/index.html"))
-})
+// MySQL Query - New User
+connection.query(
+  `INSERT INTO ${MYSQL_TABLE} (FirstName, LastName, Department, JobTitle, StartDate, EndDate, Salary) VALUES ('Pedro', 'Martinez', 'MIS', 'Tech Support', '2019-02-16', '9999-12-31', '75000')`,
+  (err, results) => {
+    if (err) {
+      throw error
+    }
+    console.log("New User Added!")
+  }
+)
 
-app.listen(PORT)
+// const express = require("express")
+// const app = express()
+
+// app.get("/", function (req, res) {
+//   res.sendFile(path.join(__dirname, "/index.html"))
+// })
+
+// app.listen(PORT)
