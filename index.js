@@ -21,33 +21,50 @@ const connection = mysql.createConnection({
 connection.connect((err) => {
   if (err) return console.error(err.message)
 
-  console.log(`Connected to the ${MYSQL_DB} Database!`)
+  console.log(`Connected to the Database!`)
 })
 
-// MySQL Queries
-// connection.query(`DESCRIBE ${MYSQL_TABLE}`, (error, results) => {
-//   if (error) {
-//     throw error
-//   }
-//   console.log(`${MYSQL_TABLE} Description:`, results)
-// })
+// Define data to be inserted
+const employee = {
+  FirstName: "Raul",
+  LastName: "Martinez",
+  Department: "MIS",
+  JobTitle: "Tech Support",
+  StartDate: "2016-02-15",
+  EndDate: "9999-12-31",
+  Salary: "75000",
+}
 
-// MySQL Query - New User
-connection.query(
-  `INSERT INTO ${MYSQL_TABLE} (FirstName, LastName, Department, JobTitle, StartDate, EndDate, Salary) VALUES ('Pedro', 'Martinez', 'MIS', 'Tech Support', '2019-02-16', '9999-12-31', '75000')`,
-  (err, results) => {
-    if (err) {
-      throw error
+// MySQL Insert Query
+const insertQuery = `INSERT INTO ${MYSQL_TABLE} SET ?`
+
+const express = require("express")
+const app = express()
+
+app.get("/", function (req, res) {
+  // destructure employee object
+  const {
+    FirstName,
+    LastName,
+    Department,
+    JobTitle,
+    StartDate,
+    EndDate,
+    Salary,
+  } = employee
+
+  // MySQL Query - New User
+  connection.query(
+    `${insertQuery}`,
+    { FirstName, LastName, Department, JobTitle, StartDate, EndDate, Salary },
+    (err) => {
+      if (err) throw err
+      console.log("1 record inserted")
+      res.send("Employee added successfully")
     }
-    console.log("New User Added!")
-  }
-)
+  )
+})
 
-// const express = require("express")
-// const app = express()
-
-// app.get("/", function (req, res) {
-//   res.sendFile(path.join(__dirname, "/index.html"))
-// })
-
-// app.listen(PORT)
+app.listen(PORT, () => {
+  console.log(`Node.js server running at http://localhost:${PORT}`)
+})
