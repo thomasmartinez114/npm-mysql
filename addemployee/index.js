@@ -42,6 +42,9 @@ app.get("/addNew", (req, res) => {
 
 // Define API Endpoint
 app.post("/addEmployee", (req, res) => {
+  console.log("API endpoing hit")
+  console.log("Request body:", req.body)
+
   const {
     FirstName,
     LastName,
