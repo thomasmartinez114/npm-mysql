@@ -6,12 +6,25 @@
     <title>Add New</title>
   </head>
   <body class="container">
-    <form onsubmit="createEmployee()">
+    <h3>Add New Employee</h3>
+    <form id="employeeForm">
       <label>First Name</label>
-      <input type="text" id="firstName" /><br /><br />
+      <input type="text" id="FirstName" /><br /><br />
       <label>Last Name</label>
-      <input type="text" id="lastName" /><br /><br />
-      <input type="submit" value="Create" />
+      <input type="text" id="LastName" /><br /><br />
+      <label>Email</label>
+      <input type="text" id="Email" /><br /><br />
+      <label>Department</label>
+      <input type="text" id="Department" /><br /><br />
+      <label>Job Title</label>
+      <input type="text" id="JobTitle" /><br /><br />
+      <label>Salary</label>
+      <input type="number" id="Salary" /><br /><br />
+      <label>Start Date</label>
+      <input type="date" id="StartDate" /><br /><br />
+      <label>End Date</label>
+      <input type="date" id="EndDate" /><br /><br />
+      <button type="submit">Submit</button>
     </form>
     <script src="/js/script.js"></script>
   </body>
