@@ -73,6 +73,7 @@ app.post("/addEmployee", (req, res) => {
       if (err) throw err
       console.log("1 record inserted")
       res.send("Employee added successfully")
+      //   res.redirect("/") // Redirect to list employees after adding
     }
   )
 })
@@ -102,13 +103,3 @@ app.listen(PORT, () => {
 //     EndDate,
 //     Salary,
 //   } = employee
-
-// app.post('/addemployee', (req, res) => {
-// const { FirstName, LastName, Department, JobTitle, StartDate, EndDate, Salary } = employee;
-// connection.query('INSERT INTO employees SET ?', { FirstName, LastName, Department, JobTitle, StartDate, EndDate, Salary }, err => {
-//     if (err) throw err;
-//     console.log('1 record inserted');
-//     res.send('Employee added successfully');
-
-//     // res.redirect('/listemployee'); // Redirect to list employees after adding
-// });
