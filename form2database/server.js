@@ -1,24 +1,3 @@
-### INSTALLED PACKAGES
-
-- dotenv
-- mysql
-- body-parser
-- express
-- nodemon
-
-### DOTENV CONTENT - .env
-
-```DB_HOST=localhost
-DB_USER=[username]
-DB_PASSWORD=[password]
-DB_NAME=[database name]
-DB_TABLE_NAME=[database table name]
-PORT=3000
-```
-
-### CONNECT INDEX TO MYSQL - index.js
-
-```
 require("dotenv").config() // Load .env file
 const mysql = require("mysql")
 const bodyParser = require("body-parser")
@@ -33,15 +12,26 @@ const MYSQL_TABLE = process.env.DB_TABLE_NAME
 
 // MySQL Connection
 const connection = mysql.createConnection({
-host: MYSQL_HOST,
-user: MYSQL_USER,
-password: MYSQL_PW,
-database: MYSQL_DB,
+  host: MYSQL_HOST,
+  user: MYSQL_USER,
+  password: MYSQL_PW,
+  database: MYSQL_DB,
 })
 
 connection.connect((err) => {
-if (err) return console.error(err.message)
+  if (err) return console.error(err.message)
 
-console.log(`Connected to the Database!`)
+  console.log(`Connected to the Database!`)
 })
-```
+
+// init express server
+const express = require("express")
+const app = express()
+
+app.get("/", (req, res) => {
+  res.send("app.get")
+})
+
+app.listen(PORT, () => {
+  console.log(`Node.js server running at http://localhost:${PORT}`)
+})
