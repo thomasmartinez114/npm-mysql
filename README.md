@@ -7,15 +7,17 @@
 
 ### DOTENV CONTENT
 
-DB_HOST=localhost
+```DB_HOST=localhost
 DB_USER=[username]
 DB_PASSWORD=[password]
 DB_NAME=[database name]
 DB_TABLE_NAME=[database table name]
 PORT=3000
+```
 
 ### CONNECT INDEX.JS TO MYSQL
 
+```
 require("dotenv").config() // Load .env file
 const mysql = require("mysql")
 const bodyParser = require("body-parser")
@@ -41,3 +43,4 @@ if (err) return console.error(err.message)
 
 console.log(`Connected to the Database!`)
 })
+```
