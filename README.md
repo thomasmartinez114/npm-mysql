@@ -5,7 +5,7 @@
 - body-parser
 - express
 
-### DOTENV CONTENT
+### DOTENV CONTENT - .env
 
 ```DB_HOST=localhost
 DB_USER=[username]
@@ -15,7 +15,7 @@ DB_TABLE_NAME=[database table name]
 PORT=3000
 ```
 
-### CONNECT INDEX.JS TO MYSQL
+### CONNECT INDEX TO MYSQL - index.js
 
 ```
 require("dotenv").config() // Load .env file
