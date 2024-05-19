@@ -41,7 +41,11 @@ const insertQuery = `INSERT INTO ${MYSQL_TABLE} SET ?`
 const express = require("express")
 const app = express()
 
-app.get("/", function (req, res) {
+app.get("/", (req, res) => {
+  res.send("Hello World")
+})
+
+app.get("/employees", function (req, res) {
   // destructure employee object
   const {
     FirstName,
@@ -53,16 +57,19 @@ app.get("/", function (req, res) {
     Salary,
   } = employee
 
+  // console.log(FirstName)
+  res.send(employee)
+
   // MySQL Query - New User
-  connection.query(
-    `${insertQuery}`,
-    { FirstName, LastName, Department, JobTitle, StartDate, EndDate, Salary },
-    (err) => {
-      if (err) throw err
-      console.log("1 record inserted")
-      res.send("Employee added successfully")
-    }
-  )
+  // connection.query(
+  //   `${insertQuery}`,
+  //   { FirstName, LastName, Department, JobTitle, StartDate, EndDate, Salary },
+  //   (err) => {
+  //     if (err) throw err
+  //     console.log("1 record inserted")
+  //     res.send("Employee added successfully")
+  //   }
+  // )
 })
 
 app.listen(PORT, () => {
