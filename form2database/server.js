@@ -63,6 +63,7 @@ app.post("/submit", (req, res) => {
       res.render("userAdded")
     }
   )
+  console.log("User has been added")
 })
 
 app.listen(PORT, () => {
