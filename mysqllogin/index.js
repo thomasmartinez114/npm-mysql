@@ -4,72 +4,58 @@ const bodyParser = require("body-parser")
 const PORT = process.env.PORT
 
 // MySQL Configuration
-const MYSQL_HOST = process.env.DB_HOST
-const MYSQL_USER = process.env.DB_USER
-const MYSQL_PW = process.env.DB_PASSWORD
-const MYSQL_DB = process.env.DB_NAME
-const MYSQL_TABLE = process.env.DB_TABLE_NAME
+const HOST = process.env.DB_HOST
+const DBUSERNAME = process.env.DB_USER
+const DBPW = process.env.DB_PASSWORD
+const DATABASE = process.env.DB_NAME
+const TABLE = process.env.DB_TABLE_NAME
 
 // MySQL Connection
-const connection = mysql.createConnection({
-  host: MYSQL_HOST,
-  user: MYSQL_USER,
-  password: MYSQL_PW,
-  database: MYSQL_DB,
+const db = mysql.createConnection({
+  host: HOST,
+  user: DBUSERNAME,
+  password: DBPW,
+  database: DATABASE,
 })
 
-connection.connect((err) => {
+db.connect((err) => {
   if (err) return console.error(err.message)
 
   console.log(`Connected to the Database!`)
 })
 
-// Define data to be inserted
-const employee = {
-  FirstName: "Raul",
-  LastName: "Martinez",
-  Department: "MIS",
-  JobTitle: "Tech Support",
-  StartDate: "2016-02-15",
-  EndDate: "9999-12-31",
-  Salary: "75000",
-}
-
-// MySQL Insert Query
-const insertQuery = `INSERT INTO ${MYSQL_TABLE} SET ?`
-
+// init express server
 const express = require("express")
 const app = express()
 
+// init ejs to display form
+app.set("view engine", "ejs")
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.get("/", (req, res) => {
-  res.send("Hello World")
+  res.render("home")
 })
 
-app.get("/employees", function (req, res) {
-  // destructure employee object
-  const {
-    FirstName,
-    LastName,
-    Department,
-    JobTitle,
-    StartDate,
-    EndDate,
-    Salary,
-  } = employee
+app.get("/login", (req, res) => {
+  res.render("login-form")
+})
 
-  // console.log(FirstName)
-  res.send(employee)
+app.post("/submit", (req, res) => {
+  const { username, password } = req.body
 
-  // MySQL Query - New User
-  // connection.query(
-  //   `${insertQuery}`,
-  //   { FirstName, LastName, Department, JobTitle, StartDate, EndDate, Salary },
-  //   (err) => {
-  //     if (err) throw err
-  //     console.log("1 record inserted")
-  //     res.send("Employee added successfully")
-  //   }
-  // )
+  const query = `INSERT INTO ${TABLE} (FirstName, LastName, Department, JobTitle, StartDate, EndDate, Salary) values (?, ?, ?, ?, ?, ?, ?)`
+
+  db.query(
+    query,
+    [firstName, lastName, department, jobTitle, startDate, endDate, salary],
+    (err, result) => {
+      if (err) {
+        throw err
+      }
+      res.render("logged") // route to logged.ejs
+    }
+  )
+  console.log("User has logged in")
 })
 
 app.listen(PORT, () => {
