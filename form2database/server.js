@@ -28,8 +28,12 @@ connection.connect((err) => {
 const express = require("express")
 const app = express()
 
+// init ejs to display form
+app.set("view engine", "ejs")
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.get("/", (req, res) => {
-  res.send("app.get")
+  res.render("form")
 })
 
 app.listen(PORT, () => {
