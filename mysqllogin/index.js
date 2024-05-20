@@ -43,18 +43,16 @@ app.get("/login", (req, res) => {
 app.post("/submit", (req, res) => {
   const { username, password } = req.body
 
-  const query = `INSERT INTO ${TABLE} (FirstName, LastName, Department, JobTitle, StartDate, EndDate, Salary) values (?, ?, ?, ?, ?, ?, ?)`
+  // check if input username and password returns a match from mysql select query
 
-  db.query(
-    query,
-    [firstName, lastName, department, jobTitle, startDate, endDate, salary],
-    (err, result) => {
-      if (err) {
-        throw err
-      }
-      res.render("logged") // route to logged.ejs
+  const query = `SELECT * FROM ${TABLE} where username = ?`
+
+  db.query(query, [username], (err, result) => {
+    if (err) {
+      throw err
     }
-  )
+    res.render("logged") // route to logged.ejs
+  })
   console.log("User has logged in")
 })
 
