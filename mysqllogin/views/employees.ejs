@@ -11,14 +11,47 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="mt-5">User Has Been Successfully Added</h1>
+      <p class="mt-5">List of Employees</p>
       <br />
-
-      <a href="/"><button>Return Home</button></a>
+      <table class="table table-striped mt-4" id="employees-table">
+        <thead>
+          <tr>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Job Title</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Salary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data will populate here from API -->
+        </tbody>
+      </table>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        try {
+          const response = await fetch("/api/employees")
+          const employees = await response.json()
+
+          const tableBody = document.querySelector("#employees-table tbody")
+          employees.forEach((employee) => {
+            const row = document.createElement("tr")
+            row.innerHTML = `
+            <td>${employee.LastName}, ${employee.FirstName}</td>
+            `
+            tableBody.appendChild(row)
+          })
+        } catch (error) {
+          console.error("Error fetching employee data:", error)
+        }
+      })
+    </script>
   </body>
 </html>

@@ -48,11 +48,11 @@ app.post("/submit", (req, res) => {
 
   const query = `SELECT * FROM ${TABLE} where username = ?` // MySQL query to select from username submitted
 
-  db.query(query, [username], (err, result) => {
+  db.query(query, [username], (err, results) => {
     if (err) {
       throw err
     }
-    const loginDetails = result[0] // use 0 index from obj result
+    const loginDetails = results[0] // use 0 index from obj result
 
     // if username matches username in result obj and password match
     if (username === loginDetails.username && password === loginDetails.creds) {
@@ -65,18 +65,25 @@ app.post("/submit", (req, res) => {
   })
 })
 
-// GET All Employees Route
+// employee page route
 app.get("/employees", (req, res) => {
-  const query = `SELECT * FROM employees;`
-
-  db.query(query, (err, result) => {
-    if (err) {
-      throw err
-    }
-    res.json(result)
-  })
+  res.render("employees")
 })
 
+// GET All Employees Route
+app.get("/api/employees", (req, res) => {
+  const query = "SELECT * FROM employees"
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error executing query:", err.stack)
+      res.status(500).send("Server error")
+      return
+    }
+    // console.log(results)
+    res.json(results)
+  })
+})
 app.listen(PORT, () => {
   console.log(`Node.js server running at http://localhost:${PORT}`)
 })
