@@ -65,6 +65,18 @@ app.post("/submit", (req, res) => {
   })
 })
 
+// GET All Employees Route
+app.get("/employees", (req, res) => {
+  const query = `SELECT * FROM employees;`
+
+  db.query(query, (err, result) => {
+    if (err) {
+      throw err
+    }
+    res.json(result)
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`Node.js server running at http://localhost:${PORT}`)
 })
