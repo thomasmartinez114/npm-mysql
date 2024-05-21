@@ -72,7 +72,7 @@ app.get("/employees", (req, res) => {
 
 // GET All Employees Route
 app.get("/api/employees", (req, res) => {
-  const query = "SELECT * FROM employees"
+  const query = "SELECT * FROM employees ORDER BY LastName ASC"
 
   db.query(query, (err, results) => {
     if (err) {
