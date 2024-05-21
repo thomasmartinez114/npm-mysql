@@ -51,9 +51,15 @@ app.post("/submit", (req, res) => {
     if (err) {
       throw err
     }
-    res.render("logged") // route to logged.ejs
+    const loginDetails = result[0]
+    if (username === loginDetails.username && password === loginDetails.creds) {
+      console.log(`User ${username} has logged in`)
+      res.render("login-success") // route to login-success.ejs
+    } else {
+      console.log(`Login Failed`)
+      res.render("login-fail") // route to login-fail
+    }
   })
-  console.log("User has logged in")
 })
 
 app.listen(PORT, () => {
