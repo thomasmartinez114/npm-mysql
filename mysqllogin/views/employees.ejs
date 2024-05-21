@@ -11,6 +11,8 @@
   </head>
   <body>
     <div class="container">
+      <br />
+      <a href="/"><button>Return Home</button></a>
       <p class="mt-5">List of Employees</p>
       <br />
       <table class="table table-striped mt-4" id="employees-table">
@@ -44,7 +46,13 @@
           employees.forEach((employee) => {
             const row = document.createElement("tr")
             row.innerHTML = `
+            <td>${employee.EmployeeID}</td>
             <td>${employee.LastName}, ${employee.FirstName}</td>
+            <td>${employee.Department}</td>
+            <td>${employee.JobTitle}</td>
+            <td>${employee.StartDate}</td>
+            <td>${employee.EndDate}</td>
+            <td>${employee.Salary}</td>
             `
             tableBody.appendChild(row)
           })

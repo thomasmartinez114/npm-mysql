@@ -65,14 +65,14 @@ app.post("/submit", (req, res) => {
   })
 })
 
-// employee page route
+// employee page route -- shows after log in
 app.get("/employees", (req, res) => {
   res.render("employees")
 })
 
 // GET All Employees Route
 app.get("/api/employees", (req, res) => {
-  const query = "SELECT * FROM employees ORDER BY LastName ASC"
+  const query = "SELECT * FROM employees ORDER BY EmployeeID ASC"
 
   db.query(query, (err, results) => {
     if (err) {
