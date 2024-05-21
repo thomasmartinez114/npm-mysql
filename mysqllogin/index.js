@@ -32,31 +32,34 @@ const app = express()
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// home page route
 app.get("/", (req, res) => {
   res.render("home")
 })
 
+// login page route
 app.get("/login", (req, res) => {
   res.render("login-form")
 })
 
+// API endpoint for submit
 app.post("/submit", (req, res) => {
-  const { username, password } = req.body
+  const { username, password } = req.body // pull data submitted on form
 
-  // check if input username and password returns a match from mysql select query
-
-  const query = `SELECT * FROM ${TABLE} where username = ?`
+  const query = `SELECT * FROM ${TABLE} where username = ?` // MySQL query to select from username submitted
 
   db.query(query, [username], (err, result) => {
     if (err) {
       throw err
     }
-    const loginDetails = result[0]
+    const loginDetails = result[0] // use 0 index from obj result
+
+    // if username matches username in result obj and password match
     if (username === loginDetails.username && password === loginDetails.creds) {
       console.log(`User ${username} has logged in`)
       res.render("login-success") // route to login-success.ejs
     } else {
-      console.log(`Login Failed`)
+      console.log("Login Failed")
       res.render("login-fail") // route to login-fail
     }
   })
