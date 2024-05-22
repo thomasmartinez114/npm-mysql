@@ -30,7 +30,8 @@ const app = express()
 
 // init ejs to display form
 app.set("view engine", "ejs")
-app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use(bodyParser.urlencoded({ extended: true })) // use bodyParser for encoded bodies
 
 // home page route
 app.get("/", (req, res) => {
@@ -84,6 +85,7 @@ app.get("/api/employees", (req, res) => {
     res.json(results)
   })
 })
+
 app.listen(PORT, () => {
   console.log(`Node.js server running at http://localhost:${PORT}`)
 })
