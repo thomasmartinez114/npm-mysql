@@ -45,7 +45,8 @@ app.get("/login", (req, res) => {
 
 // API endpoint for submit
 app.post("/submit", (req, res) => {
-  const { username, password } = req.body // pull data submitted on form
+  const { username, password } = req.body // destrucre data submitted on form
+  console.log(username, password)
 
   const query = `SELECT * FROM ${TABLE} where username = ?` // MySQL query to select from username submitted
 
